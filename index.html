@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>afterglow — Find your frequency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-night">
+  <!-- Audio Engine -->
+  <audio id="audio-player" preload="metadata"></audio>
+
+  <!-- Interactive Toast Notification -->
+  <div id="app-toast" class="app-toast"></div>
+
+  <!-- TOP NAVIGATION HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="brand-logo" id="brand-logo" title="afterglow">
+        <span class="logo-bars">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="brand-name">afterglow</span>
+        <span class="brand-dot"></span>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-link active" id="nav-discover">Discover</button>
+        <button class="nav-link" id="nav-library">
+          <span>Your library</span>
+          <span class="library-badge" id="library-count-badge">1</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="lock-bg-wrapper" title="Lock background to current theme">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Lock background</span>
+        <label class="switch">
+          <input type="checkbox" id="lock-bg-switch" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="avatar-wrapper" id="btn-user-profile" title="JD Account">
+        <div class="avatar-ring">
+          <span class="avatar-initials">JD</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       VIEW 1: DISCOVERY / HOME VIEW
+       ========================================================================= -->
+  <main id="view-discovery" class="view active-view">
+    <div class="view-content">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <span class="hero-overline">TUNE OUT. FEEL MORE.</span>
+        <h1 class="hero-title">Find your frequency.</h1>
+        <p class="hero-subtitle">All your sounds. One space. A little more you.</p>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+          <div class="search-bar">
+            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="track-search" placeholder="Search music, podcasts, or YouTube audio..." autocomplete="off">
+            <div class="search-shortcut" id="btn-focus-search">
+              <kbd>⌘ K</kbd>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Row -->
+        <div class="filter-row">
+          <div class="filter-pills">
+            <button class="filter-pill active" data-filter="all">Music</button>
+            <button class="filter-pill" data-filter="podcast">Podcasts</button>
+            <button class="filter-pill" data-filter="youtube">YouTube Audio</button>
+            <button class="filter-pill" data-filter="ambient">My Vibe (Backgrounds)</button>
+          </div>
+          <button class="btn-random-mood" id="btn-random-mood" title="Play random mood">
+            <svg class="dice-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 8h.01"></path>
+              <path d="M8 8h.01"></path>
+              <path d="M8 16h.01"></path>
+              <path d="M16 16h.01"></path>
+              <path d="M12 12h.01"></path>
+            </svg>
+            <span>Randomize Mood</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 1: In tune with your night -->
+      <section class="content-section" id="section-mood">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2 class="section-title editorial-serif">In tune with your night</h2>
+            <span class="section-subtitle mono-sub">Trending music, picked for you</span>
+          </div>
+          <div class="section-controls">
+            <button class="btn-view-all" id="btn-view-all-mood">View all</button>
+            <button class="btn-scroll-arrow" id="scroll-left" title="Scroll left">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="btn-scroll-arrow" id="scroll-right" title="Scroll right">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="cards-carousel" id="mood-carousel">
+          <!-- Card 1: Weightless -->
+          <div class="music-card active" data-id="1">
+            <div class="card-cover-wrapper">
+              <img src="assets/cover_1_weightless.png" alt="Weightless" class="card-cover">
+              <div class="card-badge">
+                <span class="sound-wave-mini">
+                  <span></span><span></span><span></span>
+                </span>
+                <span>NOW PLAYING</span>
+              </div>
+              <div class="card-play-overlay">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              </div>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Weightless</h3>
+              <p class="card-artist">Noah Sol</p>
+              <p class="card-meta">LO-FI · 3:48</p>
+            </div>
+          </div>
+
+          <!-- Card 2: City After Rain -->
+          <div class="music-card" data-id="2">
+            <div class="card-cover-wrapper">
+              <img src="assets/cover_2_city_rain.png" alt="City After Rain" class="card-cover">
+              <div class="card-play-overlay">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              </div>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">City After Rain</h3>
+              <p class="card-artist">Yuna & the Moon</p>
+              <p class="card-meta">CHILLHOP · 2:56</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Soft Focus -->
+          <div class="music-card" data-id="3">
+            <div class="card-cover-wrapper">
+              <img src="assets/cover_3_soft_focus.png" alt="Soft Focus" class="card-cover">
+              <div class="card-play-overlay">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              </div>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Soft Focus</h3>
+              <p class="card-artist">Arlo Parks</p>
+              <p class="card-meta">INDIE SOUL · 4:12</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Blue Hour -->
+          <div class="music-card" data-id="4">
+            <div class="card-cover-wrapper">
+              <img src="assets/cover_4_blue_hour.png" alt="Blue Hour" class="card-cover">
+              <div class="card-play-overlay">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              </div>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Blue Hour</h3>
+              <p class="card-artist">Kairo</p>
+              <p class="card-meta">AMBIENT · 5:21</p>
+            </div>
+          </div>
+
+          <!-- Card 5: Somewhere Slow -->
+          <div class="music-card" data-id="5">
+            <div class="card-cover-wrapper">
+              <img src="assets/cover_5_somewhere_slow.png" alt="Somewhere Slow" class="card-cover">
+              <div class="card-play-overlay">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              </div>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Somewhere Slow</h3>
+              <p class="card-artist">Haru</p>
+              <p class="card-meta">JAZZ HOP · 3:16</p>
+            </div>
+          </div>
+
+          <!-- Card 6: Lunar Drift -->
+          <div class="music-card" data-id="6">
+            <div class="card-cover-wrapper">
+              <img src="assets/cover_6_lunar_drift.png" alt="Lunar Drift" class="card-cover">
+              <div class="card-play-overlay">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              </div>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Lunar Drift</h3>
+              <p class="card-artist">Pale Cinema</p>
+              <p class="card-meta">ELECTRONIC · 4:08</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Stay a little longer -->
+      <section class="content-section" id="section-longer">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2 class="section-title editorial-serif">Stay a little longer</h2>
+            <span class="section-subtitle mono-sub">Fresh perspectives & long-form escapes</span>
+          </div>
+          <div class="section-controls">
+            <button class="btn-view-all" id="btn-view-all-longer">View all</button>
+            <button class="btn-scroll-arrow" id="scroll-longer-left" title="Scroll left">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="btn-scroll-arrow" id="scroll-longer-right" title="Scroll right">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="longform-grid" id="longform-grid">
+          <!-- Item 1 -->
+          <div class="longform-card" data-id="7">
+            <img src="assets/thumb_doing_less.png" alt="The art of doing less" class="longform-thumb">
+            <div class="longform-body">
+              <span class="longform-tag">PODCAST</span>
+              <h4 class="longform-title">The art of doing less</h4>
+              <p class="longform-meta">The Slowdown · Ep. 128</p>
+              <p class="longform-time">42 min</p>
+            </div>
+            <button class="btn-play-mini" title="Play">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+            </button>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="longform-card" data-id="8">
+            <img src="assets/thumb_stars.png" alt="Why we look at the stars" class="longform-thumb">
+            <div class="longform-body">
+              <span class="longform-tag">PODCAST</span>
+              <h4 class="longform-title">Why we look at the stars</h4>
+              <p class="longform-meta">Orbital Conversations · Ep. 64</p>
+              <p class="longform-time">56 min</p>
+            </div>
+            <button class="btn-play-mini" title="Play">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+            </button>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="longform-card" data-id="9">
+            <img src="assets/thumb_tokyo.png" alt="Tokyo rooftop sessions" class="longform-thumb">
+            <div class="longform-body">
+              <span class="longform-tag">YOUTUBE AUDIO</span>
+              <h4 class="longform-title">Tokyo rooftop sessions</h4>
+              <p class="longform-meta">Chillhop Radio</p>
+              <p class="longform-time">1 hr 24 min</p>
+            </div>
+            <button class="btn-play-mini" title="Play">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+            </button>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="longform-card" data-id="10">
+            <img src="assets/thumb_quiet_place.png" alt="A quiet place to think" class="longform-thumb">
+            <div class="longform-body">
+              <span class="longform-tag">YOUTUBE AUDIO</span>
+              <h4 class="longform-title">A quiet place to think</h4>
+              <p class="longform-meta">The Ambient Room</p>
+              <p class="longform-time">2 hr 10 min</p>
+            </div>
+            <button class="btn-play-mini" title="Play">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Atmosphere Status Note -->
+      <div class="atmosphere-footer-note">
+        <span class="note-bullet">•</span>
+        <span class="note-text" id="home-atmosphere-label">Your atmosphere: Starlit rooftop — Backgrounds that move with your music</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       VIEW 2: NOW PLAYING / IMMERSIVE VIEW
+       ========================================================================= -->
+  <main id="view-now-playing" class="view">
+    <div class="np-sub-header">
+      <button class="btn-back-discovery" id="btn-back-discovery">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to discovery</span>
+      </button>
+
+      <div class="np-playing-from">
+        <span>• PLAYING FROM YOUR NIGHT MIX</span>
+      </div>
+
+      <button class="btn-np-fullscreen" id="btn-np-fullscreen" title="Toggle Fullscreen">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+      </button>
+    </div>
+
+    <!-- Floating Atmosphere Pill -->
+    <div class="np-floating-pill-wrap">
+      <div class="np-floating-pill">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        <div class="pill-text">
+          <strong>Moonlit stillness</strong>
+          <span>Matched to your sound · Ambient</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Central Stage -->
+    <div class="np-stage">
+      <!-- Left: Large Framed Album Art -->
+      <div class="np-cover-col">
+        <div class="np-glass-frame">
+          <img src="assets/cover_weightless_large.png" alt="Now Playing Art" id="np-main-cover" class="np-cover-img">
+        </div>
+      </div>
+
+      <!-- Center: Track Info & Interactive Actions -->
+      <div class="np-info-col">
+        <div class="np-genre-tag" id="np-genre">
+          <span class="genre-wave">
+            <span></span><span></span><span></span>
+          </span>
+          <span id="np-genre-text">LO-FI / AMBIENT</span>
+        </div>
+
+        <h1 class="np-track-title" id="np-title">Weightless</h1>
+        <h2 class="np-track-artist" id="np-artist">Noah Sol</h2>
+        <p class="np-track-meta" id="np-meta">Midnight Tapes · 2026 · 3:48</p>
+
+        <p class="np-track-desc" id="np-desc">
+          For the moments between everything. Soft keys, slow rhythms, and nowhere else to be.
+        </p>
+
+        <div class="np-actions-row">
+          <button class="btn-save-library" id="btn-save-library" title="Save to your library">
+            <svg class="heart-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span id="save-library-text">Save to library</span>
+          </button>
+          <button class="btn-more-options" id="btn-more-options" title="More options">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Floating Up Next Card -->
+      <div class="np-upnext-col">
+        <div class="upnext-card" id="upnext-card" title="Click to play next track">
+          <div class="upnext-header">
+            <span>UP NEXT</span>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          </div>
+          <div class="upnext-body">
+            <img src="assets/cover_4_blue_hour.png" alt="Blue Hour" id="upnext-thumb" class="upnext-thumb">
+            <div class="upnext-info">
+              <h4 class="upnext-title" id="upnext-title">Blue Hour</h4>
+              <p class="upnext-artist" id="upnext-artist">Kairo · 5:21</p>
+            </div>
+          </div>
+          <div class="upnext-footer">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.178 8c5.096 0 5.096 8 0 8-2.695 0-4.735-4-7.178-8-2.443-4-4.483-8-7.178-8-5.096 0-5.096 8 0 8 2.695 0 4.735 4 7.178 8 2.443 4 4.483 8 7.178 8z"></path></svg>
+            <span>Your vibe continues with autoplay</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Atmospheric Bottom Status Line -->
+    <div class="np-bottom-status-line">
+      <div class="status-item">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+        <span>Music · Original audio</span>
+      </div>
+      <div class="status-center-quote">
+        <span>Let the world wait a little.</span>
+      </div>
+      <button class="btn-change-background" id="btn-change-bg" title="Switch ambient scenery">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        <span>Change background</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       YOUR LIBRARY / FAVORITES DRAWER MODAL
+       ========================================================================= -->
+  <div id="library-modal" class="library-modal">
+    <div class="library-modal-backdrop" id="library-modal-backdrop"></div>
+    <div class="library-drawer">
+      <div class="library-header">
+        <div class="library-header-title">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="#ff6b8b" stroke="#ff6b8b" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <h3>Your Saved Library</h3>
+          <span class="library-count-pill" id="drawer-count-pill">1 song</span>
+        </div>
+        <button class="btn-close-drawer" id="btn-close-library" title="Close Library">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="library-body" id="library-songs-list">
+        <!-- Dynamically injected favorite songs -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PERSISTENT BOTTOM PLAYER DOCK
+       ========================================================================= -->
+  <footer class="player-dock">
+    <!-- Left: Current Track Information -->
+    <div class="player-track-info" id="player-track-expand" title="Click to open Now Playing view">
+      <img src="assets/cover_1_weightless.png" alt="Current Track" id="dock-cover" class="dock-thumb">
+      <div class="dock-meta">
+        <h4 class="dock-title" id="dock-title">Weightless</h4>
+        <p class="dock-artist" id="dock-artist">Noah Sol · Midnight Tapes</p>
+      </div>
+      <button class="btn-dock-heart liked" id="dock-heart" title="Save to favorites">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      </button>
+    </div>
+
+    <!-- Center: Playback Controls & Progress Scrubber -->
+    <div class="player-center-controls">
+      <div class="control-buttons">
+        <!-- Shuffle -->
+        <button class="ctrl-btn" id="btn-shuffle" title="Shuffle (S)">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+        </button>
+
+        <!-- Previous -->
+        <button class="ctrl-btn" id="btn-prev" title="Previous (Left Arrow)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="3"></line></svg>
+        </button>
+
+        <!-- Rewind 10s -->
+        <button class="ctrl-btn" id="btn-rewind-10" title="Rewind 10s">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline><text x="8.5" y="15" font-size="7" fill="currentColor" font-weight="700">10</text></svg>
+        </button>
+
+        <!-- Main Play / Pause -->
+        <button class="ctrl-btn-play" id="btn-play-pause" title="Play / Pause (Space)">
+          <svg class="icon-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        </button>
+
+        <!-- Forward 10s -->
+        <button class="ctrl-btn" id="btn-forward-10" title="Forward 10s">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline><text x="8.5" y="15" font-size="7" fill="currentColor" font-weight="700">10</text></svg>
+        </button>
+
+        <!-- Next -->
+        <button class="ctrl-btn" id="btn-next" title="Next (Right Arrow)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="3"></line></svg>
+        </button>
+
+        <!-- Repeat -->
+        <button class="ctrl-btn" id="btn-repeat" title="Repeat (R)">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+        </button>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="time-label" id="current-time">1:42</span>
+        <div class="seek-bar" id="seek-bar">
+          <div class="seek-fill" id="seek-fill" style="width: 44.7%;"></div>
+          <div class="seek-thumb" id="seek-thumb" style="left: 44.7%;"></div>
+        </div>
+        <span class="time-label" id="total-time">3:48</span>
+      </div>
+    </div>
+
+    <!-- Right: Bitrate Dropdown, Volume & Expand View -->
+    <div class="player-right-options">
+      <!-- Bitrate Dropdown -->
+      <div class="bitrate-dropdown-wrap">
+        <button class="btn-bitrate" id="btn-bitrate" title="Change streaming quality">
+          <span id="current-bitrate">MP3 · 320 kbps</span>
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="bitrate-menu" id="bitrate-menu">
+          <div class="bitrate-item active" data-quality="MP3 · 320 kbps">MP3 · 320 kbps (High)</div>
+          <div class="bitrate-item" data-quality="FLAC · 24-bit">FLAC · 24-bit (Lossless)</div>
+          <div class="bitrate-item" data-quality="Dolby Atmos">Dolby Atmos (Spatial)</div>
+        </div>
+      </div>
+
+      <!-- Volume -->
+      <div class="volume-container">
+        <button class="btn-volume" id="btn-volume" title="Mute/Unmute (M)">
+          <svg class="icon-vol-high" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          <svg class="icon-vol-mute" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+        <div class="volume-bar" id="volume-bar">
+          <div class="volume-fill" id="volume-fill" style="width: 80%;"></div>
+        </div>
+      </div>
+
+      <!-- Expand View Button -->
+      <button class="btn-expand-view" id="btn-expand-view" title="Toggle Now Playing view (F)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+      </button>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
